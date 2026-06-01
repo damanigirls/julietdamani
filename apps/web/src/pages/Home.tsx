@@ -25,7 +25,18 @@ export default function Home() {
   useEffect(() => {
     getAbout().then(setAbout).catch(() => {});
     getProjects()
-      .then((d: { projects: Project[] }) => setProjects(d.projects))
+      .then((d: { projects: Project[] }) => {
+        const hasSpelling = d.projects.some((p) => p.title === "Spelling Adventure");
+        const allProjects = hasSpelling
+          ? d.projects
+          : [...d.projects, {
+              title: "Spelling Adventure",
+              description: "A fun spelling app with lessons, games, battles, and cute characters",
+              emoji: "📝",
+              status: "live",
+            }];
+        setProjects(allProjects);
+      })
       .catch(() => {});
   }, []);
 
@@ -74,7 +85,9 @@ export default function Home() {
               ) : (
                 <span className="text-5xl">{fact.emoji}</span>
               )}
-              <p className="mt-3 text-center font-medium text-white">{fact.text}</p>
+              <p className="mt-3 text-center font-medium text-white">
+                {fact.text.replace("kind and useful", "helpful")}
+              </p>
             </div>
           ))}
         </div>
@@ -91,6 +104,7 @@ export default function Home() {
               const linkMap: Record<string, string> = {
                 "Babysitting Service": "/babysitting",
                 "Coral Reef Quiz": "/coral-reef",
+                "Spelling Adventure": "/spelling",
               };
               const linkTo = linkMap[project.title];
               const card = (
