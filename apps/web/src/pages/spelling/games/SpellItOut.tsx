@@ -180,7 +180,7 @@ export default function SpellItOut({
       {/* Answer tiles */}
       <div className="mb-4 flex justify-center">
         <div className="flex flex-wrap justify-center gap-2">
-          {word.word.split("").map((letter, i) => {
+          {word.word.split("").map((_letter, i) => {
             const typed = guess.toUpperCase()[i];
             return (
               <span key={i}

@@ -270,7 +270,7 @@ export default function BattleTab({ store }: { store: Store }) {
         }
         store.addInventoryEntry({
           type: "battle",
-          title: `Battle vs ${opponent.name} (${opponent.country})`,
+          title: `Battle vs ${opponent!.name} (${opponent!.country})`,
           score: finalMyScore,
           total,
           starsEarned: iWon ? 3 : 0,
@@ -318,7 +318,7 @@ export default function BattleTab({ store }: { store: Store }) {
         {/* Answer tiles */}
         <div className="mb-4 flex justify-center">
           <div className="flex flex-wrap justify-center gap-2">
-            {word.word.split("").map((letter, i) => {
+            {word.word.split("").map((_letter, i) => {
               const typed = guess.toUpperCase()[i];
               return (
                 <span
@@ -391,7 +391,7 @@ export default function BattleTab({ store }: { store: Store }) {
           </div>
           <h3 className="rainbow-sparkle text-3xl font-bold">You Win!</h3>
           <p className="mt-2 text-lg text-white">
-            You beat <span className="font-bold">{opponent?.name}</span> from {opponent?.country}!
+            You beat <span className="font-bold">{opponent!.name}</span> from {opponent!.country}!
           </p>
           <p className="mt-1 text-white/60">
             {myScore} - {opponentScore}

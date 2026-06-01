@@ -7,16 +7,6 @@ import JourneyMap from "./JourneyMap";
 
 type Store = ReturnType<typeof useSpellingStore>;
 
-const DIFFICULTY_COLORS = {
-  easy: "bg-green-900 text-green-400",
-  medium: "bg-yellow-900 text-yellow-400",
-  hard: "bg-red-900 text-red-400",
-};
-const DIFFICULTY_LABELS = {
-  easy: "Review",
-  medium: "Your Level",
-  hard: "Challenge",
-};
 
 export default function LessonsTab({ store }: { store: Store }) {
   const [activeLesson, setActiveLesson] = useState<Lesson | null>(null);
