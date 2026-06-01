@@ -23,13 +23,22 @@ export default function Home() {
   const [projects, setProjects] = useState<Project[]>([]);
 
   useEffect(() => {
-    getAbout().then(setAbout).catch(() => {});
+    getAbout().then((data) => {
+      // Add robotics fun fact
+      const hasRobotics = data.funFacts.some((f: { text: string }) => f.text.toLowerCase().includes("robotics"));
+      if (!hasRobotics) {
+        data.funFacts.push({ emoji: "🤖", text: "My friends and I run Robotics Minors" });
+      }
+      setAbout(data);
+    }).catch(() => {});
     getProjects()
       .then((d: { projects: Project[] }) => {
-        const hasSpelling = d.projects.some((p) => p.title === "Spelling Adventure");
+        // Remove Robotics from projects (moved to fun facts)
+        const filtered = d.projects.filter((p) => p.title !== "Robotics for Kids");
+        const hasSpelling = filtered.some((p) => p.title === "Spelling Adventure");
         const allProjects = hasSpelling
-          ? d.projects
-          : [...d.projects, {
+          ? filtered
+          : [...filtered, {
               title: "Spelling Adventure",
               description: "A fun spelling app with lessons, games, battles, and cute characters",
               emoji: "📝",
