@@ -34,7 +34,7 @@ export default function Home() {
     getProjects()
       .then((d: { projects: Project[] }) => {
         // Remove Robotics from projects (moved to fun facts)
-        const filtered = d.projects.filter((p) => p.title !== "Robotics for Kids");
+        const filtered = d.projects.filter((p) => p.title !== "Robotics for Kids" && p.title !== "This Website");
         const hasSpelling = filtered.some((p) => p.title === "Spelling Adventure");
         const allProjects = hasSpelling
           ? filtered
