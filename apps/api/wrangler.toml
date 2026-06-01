@@ -1,0 +1,17 @@
+name = "juliet-api"
+main = "src/index.ts"
+compatibility_date = "2025-03-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Custom domain — routes all traffic from api.julietdamani.com to this worker
+[[routes]]
+pattern = "api.julietdamani.com/*"
+zone_name = "julietdamani.com"
+
+[vars]
+BABYSITTING_ADMIN_PASS = "juliet123"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "juliet-babysitting"
+database_id = "f585b77f-1a9e-4996-919c-05a7011db162"

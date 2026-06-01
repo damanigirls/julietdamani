@@ -1,5 +1,5 @@
 const API_BASE =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+  import.meta.env.VITE_API_URL || "https://api.julietdamani.com";
 
 export async function submitRequest(data: {
   parent_name: string;
@@ -8,6 +8,7 @@ export async function submitRequest(data: {
   date_needed: string;
   time_needed: string;
   num_kids: number;
+  kids_names: string;
   kids_ages: string;
   special_instructions: string;
 }) {
@@ -22,7 +23,7 @@ export async function submitRequest(data: {
 
 export async function getRequests(passphrase: string) {
   const res = await fetch(
-    `${API_BASE}/api/babysitting/requests?passphrase=${encodeURIComponent(passphrase)}`,
+    `${API_BASE}/api/babysitting/requests?passphrase=${encodeURIComponent(passphrase)}`
   );
   if (res.status === 403) throw new Error("Invalid passphrase");
   if (!res.ok) throw new Error("Failed to fetch requests");
@@ -32,7 +33,7 @@ export async function getRequests(passphrase: string) {
 export async function updateStatus(
   id: number,
   status: string,
-  passphrase: string,
+  passphrase: string
 ) {
   const res = await fetch(
     `${API_BASE}/api/babysitting/requests/${id}/status`,
@@ -40,7 +41,7 @@ export async function updateStatus(
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status, passphrase }),
-    },
+    }
   );
   if (!res.ok) throw new Error("Failed to update status");
   return res.json();
@@ -48,7 +49,7 @@ export async function updateStatus(
 
 export async function getRatingInfo(token: string) {
   const res = await fetch(
-    `${API_BASE}/api/babysitting/requests/rate/${token}`,
+    `${API_BASE}/api/babysitting/requests/rate/${token}`
   );
   if (!res.ok) return null;
   return res.json();
@@ -57,7 +58,7 @@ export async function getRatingInfo(token: string) {
 export async function submitRating(
   token: string,
   stars: number,
-  comment: string,
+  comment: string
 ) {
   const res = await fetch(
     `${API_BASE}/api/babysitting/requests/rate/${token}`,
@@ -65,16 +66,25 @@ export async function submitRating(
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ stars, comment }),
-    },
+    }
   );
   if (!res.ok) throw new Error("Failed to submit rating");
   return res.json();
 }
 
 export async function getStats() {
-  const res = await fetch(`${API_BASE}/api/babysitting/stats`, {
-    cache: "no-store",
-  });
-  if (!res.ok) return { total_completed: 0, average_rating: 0, total_reviews: 0 };
+  const res = await fetch(`${API_BASE}/api/babysitting/stats`);
+  if (!res.ok)
+    return { total_completed: 0, average_rating: 0, total_reviews: 0 };
+  return res.json();
+}
+
+export async function getAbout() {
+  const res = await fetch(`${API_BASE}/api/about`);
+  return res.json();
+}
+
+export async function getProjects() {
+  const res = await fetch(`${API_BASE}/api/projects`);
   return res.json();
 }
