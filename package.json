@@ -1,0 +1,11 @@
+{
+  "name": "juliet-site",
+  "private": true,
+  "scripts": {
+    "build": "npm --prefix apps/web install && npm --prefix apps/web run build",
+    "deploy": "npm run build && wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4"
+  }
+}
