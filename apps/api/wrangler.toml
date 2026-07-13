@@ -3,10 +3,11 @@ main = "src/index.ts"
 compatibility_date = "2025-03-01"
 compatibility_flags = ["nodejs_compat"]
 
-# Custom domain — routes all traffic from api.julietdamani.com to this worker
+# Custom domain — binds api.julietdamani.com directly to this worker
+# (wrangler creates/maintains the Custom Domain + DNS record on deploy)
 [[routes]]
-pattern = "api.julietdamani.com/*"
-zone_name = "julietdamani.com"
+pattern = "api.julietdamani.com"
+custom_domain = true
 
 [vars]
 BABYSITTING_ADMIN_PASS = "juliet123"
