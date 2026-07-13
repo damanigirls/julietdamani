@@ -20,14 +20,22 @@ app.get("/api/health", (c) => {
   return c.json({ status: "ok" });
 });
 
+app.get("/api/grade", (c) => {
+  return c.json({
+    question: "Which grade are you in?",
+    answer: "I'm in 5th grade",
+    grade: "5th",
+  });
+});
+
 app.get("/api/about", (c) => {
   return c.json({
     name: "Juliet Damani",
-    grade: "4th",
+    grade: "5th",
     tagline: "I vibe code apps for fun!",
     favoriteColor: "purple",
     funFacts: [
-      { emoji: "4th", text: "I'm in 4th grade" },
+      { emoji: "5th", text: "I'm in 5th grade" },
       { emoji: "💻", text: "I host my apps on this site" },
       { emoji: "✨", text: "Coding is my superpower" },
       { emoji: "🎓", text: "I want to teach kids to be smart when I grow up" },

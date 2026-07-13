@@ -89,8 +89,8 @@ export default function Home() {
                   alt="Coral reef"
                   className="h-16 w-16 rounded-full object-cover"
                 />
-              ) : fact.emoji === "4th" ? (
-                <span className="rainbow-sparkle text-5xl font-black">4th</span>
+              ) : fact.emoji === "5th" ? (
+                <span className="rainbow-sparkle text-5xl font-black">5th</span>
               ) : (
                 <span className="text-5xl">{fact.emoji}</span>
               )}
